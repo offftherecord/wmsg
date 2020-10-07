@@ -65,7 +65,7 @@ func main() {
 
 	// Webhook required
 	if webhook == "" {
-		fmt.Println("Usage: toslack -w <webhook>")
+		fmt.Println("Usage: tohook -w <webhook>")
 		fmt.Println("Missing webhook.")
 		flag.PrintDefaults()
 		os.Exit(1)

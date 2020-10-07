@@ -1,3 +1,3 @@
-module github.com/offftherecord/toslack
+module github.com/offftherecord/tohook
 
 go 1.14
