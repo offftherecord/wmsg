@@ -14,10 +14,10 @@ import (
 )
 
 const (
-	timeout   = 10
-	codeStart = "```"
-	codeEnd   = "```"
-	newLine   = "\n"
+	defaultTimeout = 10
+	blockStart     = "```"
+	blockEnd       = "```"
+	newline        = "\n"
 )
 
 // slackRequestBody something
@@ -25,11 +25,15 @@ type slackRequestBody struct {
 	Text string `json:"text"`
 }
 
+func blockFormat(msg string) string {
+	return blockStart + msg + blockEnd
+}
+
 // Send will post to an 'Incoming Webook' url
 func Send(webookURL string, msg string, code bool, timeout int) error {
 
 	if code {
-		msg = codeStart + msg + codeEnd
+		msg = blockFormat(msg)
 	}
 
 	slackBody, _ := json.Marshal(slackRequestBody{Text: msg})
@@ -40,7 +44,7 @@ func Send(webookURL string, msg string, code bool, timeout int) error {
 
 	req.Header.Add("Content-Type", "application/json")
 
-	client := &http.Client{Timeout: 10 * time.Second}
+	client := &http.Client{Timeout: time.Duration(timeout) * time.Second}
 	resp, err := client.Do(req)
 	if err != nil {
 		return err
@@ -59,11 +63,22 @@ func main() {
 	flag.StringVar(&webhook, "w", "", "Webhook to post to")
 
 	var code bool
-	flag.BoolVar(&code, "c", false, "Wrap message in code block")
+	flag.BoolVar(&code, "c", false, "Wrap message in code block (default: false)")
+
+	var timeout int
+	flag.IntVar(&timeout, "t", defaultTimeout, "Timeout in seconds (default: 10)")
+
+	var help bool
+	flag.BoolVar(&help, "h", false, "Print this help screen")
 
 	flag.Parse()
 
-	// Webhook required
+	if help {
+		fmt.Println("Usage: tohook -w <webhook>")
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
+
 	if webhook == "" {
 		fmt.Println("Usage: tohook -w <webhook>")
 		fmt.Println("Missing webhook.")
@@ -74,10 +89,10 @@ func main() {
 	var msg string
 	sc := bufio.NewScanner(os.Stdin)
 	for sc.Scan() {
-		msg += sc.Text() + newLine
+		msg += sc.Text() + newline
 	}
 
-	err := Send(webhook, msg, code, 10)
+	err := Send(webhook, msg, code, timeout)
 	if err != nil {
 		log.Fatalln(err)
 	}
