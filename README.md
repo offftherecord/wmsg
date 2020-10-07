@@ -1,18 +1,18 @@
 # toslack
 A command line tool to post messages to slack from stdin.
 
-# Install
+## Install
 ```
 go get github.com/offftherecord/toslack
 ```
-# Usage
-```Usage: toslack -w <webhook>
-Missing webhook.
+## Help Menu
+```
+Usage: toslack -w <webhook>
   -c    Wrap message in code block
   -w string
         Webhook to post to
 ```
-Basic usage
+## Basic usage
 ```
 echo Hello World | toslack -w <webhook url>
 ```
