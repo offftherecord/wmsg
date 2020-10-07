@@ -60,16 +60,16 @@ func Send(webookURL string, msg string, code bool, timeout int) error {
 
 func main() {
 	var webhook string
-	flag.StringVar(&webhook, "w", "", "Webhook to post to")
+	flag.StringVar(&webhook, "w", "", "Webhook to post to.")
 
 	var code bool
-	flag.BoolVar(&code, "c", false, "Wrap message in code block (default false)")
+	flag.BoolVar(&code, "c", false, "Wrap message in code block. (default false)")
 
 	var timeout int
-	flag.IntVar(&timeout, "t", defaultTimeout, "Timeout in seconds")
+	flag.IntVar(&timeout, "t", defaultTimeout, "Timeout in seconds.")
 
 	var help bool
-	flag.BoolVar(&help, "h", false, "Print this help screen")
+	flag.BoolVar(&help, "h", false, "Print this help information.")
 
 	flag.Parse()
 
