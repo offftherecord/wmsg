@@ -3,7 +3,7 @@ A command line tool to post messages to a webhook from stdin.
 
 ## Install
 ```
-go get github.com/offftherecord/tohook
+go get -u github.com/offftherecord/tohook
 ```
 ## Help Menu
 ```
