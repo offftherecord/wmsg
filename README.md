@@ -8,12 +8,11 @@ go get -u github.com/offftherecord/wmsg
 ## Help Menu
 ```
 Usage: wmsg -w <webhook>
-  -c    Wrap message in code block
+  -c    Format message to use code block
   -w string
         Webhook to post to
 ```
 ## Basic usage
-**Note:** Slack is the default service used
 ```
 echo Hello World | wmsg -w <webhook url>
 ```
@@ -23,5 +22,5 @@ If you want a nicer looking format you can use the `-c` flag which will wrap you
 echo '{"test": "value"}' | jq | wmsg -w <webhook url> -c
 ```
 
-# TODO:
+# Known Issues
 - Build Discord service
