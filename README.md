@@ -1,6 +1,8 @@
 # wmsg
 A general purpose command line tool to send messages to slack.
 
+**Note:** Take caution not to spam Slack with messages
+
 ## Install
 ```
 go get -u github.com/offftherecord/wmsg
@@ -12,15 +14,13 @@ Usage: wmsg -w <webhook>
   -w string
         Webhook to post to
 ```
-## Basic usage
-```
-echo Hello World | wmsg -w <webhook url>
-```
-If you want a nicer looking format you can use the `-c` flag which will wrap your input around code blocks
+## Example uses
+Send notifications when long running tasks are done
 
 ```
-echo '{"test": "value"}' | jq | wmsg -w <webhook url> -c
+nmap -sS target; echo "Nmap scan completed"| wmsg -w <webhook>
 ```
-
-# Known Issues
-- Build Discord service
+Send formatted output from tools
+```
+amass enum -d domain -o results; cat results | anew | wmsg -w <webhook> -c
+```
