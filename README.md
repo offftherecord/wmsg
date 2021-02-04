@@ -1,13 +1,13 @@
-# To Hook
-A command line tool to post messages to a webhook from stdin.
+# wmsg
+A general purpose command line tool to send messages to slack.
 
 ## Install
 ```
-go get github.com/offftherecord/tohook
+go get -u github.com/offftherecord/wmsg
 ```
 ## Help Menu
 ```
-Usage: tohook -w <webhook>
+Usage: wmsg -w <webhook>
   -c    Wrap message in code block
   -w string
         Webhook to post to
@@ -15,12 +15,12 @@ Usage: tohook -w <webhook>
 ## Basic usage
 **Note:** Slack is the default service used
 ```
-echo Hello World | tohook -w <webhook url>
+echo Hello World | wmsg -w <webhook url>
 ```
 If you want a nicer looking format you can use the `-c` flag which will wrap your input around code blocks
 
 ```
-echo '{"test": "value"}' | jq | tohook -w <webhook url> -c
+echo '{"test": "value"}' | jq | wmsg -w <webhook url> -c
 ```
 
 # TODO:
